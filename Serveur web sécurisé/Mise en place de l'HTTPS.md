@@ -46,8 +46,8 @@
   ```bash
   openssl genrsa -des3 -out /etc/ssl/sodecaf/private/cakey.pem 4096
   ```
-
-> Mot de passe de chiffrement pour cakey.pem : Btssio2017
+  
+  > Mot de passe de chiffrement pour cakey.pem : Btssio2017
 
 - Accorder uniquement l'accès en lecture seule à root pour la clé privée
   
