@@ -25,7 +25,8 @@
 - Editez le fichier /etc/ssl/openssl.cnf
   
   ```bash
-  dir = ./sodecaf
+  dir = /etc/ssl/sodecaf
+  certificate = $dir/certs/cacert.pem
   ```
 
 - Création des dossiers et fichiers nécessaires
@@ -48,16 +49,42 @@
 
 > Mot de passe de chiffrement pour cakey.pem : Btssio2017
 
-- 
-
-  Accorder uniquement l'accès en lecture seule à root pour la clé privée
-
-```bash
-chmod 400 /etc/ssl/sodecaf/private/cakey.pem
-```
+- Accorder uniquement l'accès en lecture seule à root pour la clé privée
+  
+  ```bash
+  chmod 400 /etc/ssl/sodecaf/private/cakey.pem
+  ```
 
 - Création du certificat auto-signé de l'autorité de certification
   
   ```bash
-  openssl req -new -x509 -days 1825 -key /etc/ssl/sodecaf/private/cakey.pem -out /etc/ssl/sodecaf/certs/cacert.pem
+    openssl req -new -x509 -days 1825 -key /etc/ssl/sodecaf/private/cakey.pem -out  /etc/ssl/sodecaf/certs/cacert.pem
   ```
+
+- Configuration d'openssl.cnf sur le serveur web
+  
+  ```bash
+  dir = /etc/ssl
+  ```
+
+- Création du fichier de demande de certificat
+  
+  ```bash
+  openssl req -new -key /etc/ssl/private/srvwebkey.pem -out certs/srvwebkey_dem.pem
+  ```
+
+- Copie du fichier de demande de certificat sur la machine CA
+  
+  ```bash
+  scp /etc/ssl/certs/srvwebkey_dem.pem etudiant@172.16.0.20:/home/etudiant
+  ```
+
+## 3. On travaille sur CA
+
+- Création du certificat signé par l'autorité de certification
+  
+  ```bash
+  openssl ca -policy policy_anything -out /etc/ssl/srvwebcert.pem -infiles /home/etudiant/srvwebkey_dem.pem
+  ```
+
+- 
