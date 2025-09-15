@@ -197,7 +197,7 @@
   </VirtualHost>
   ```
 
-- redémarrer Apache2
+- Redémarrer Apache2
   
   ```bash
   systemctl restart apache2
