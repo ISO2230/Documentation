@@ -107,4 +107,17 @@
   chown root:root /etc/ssl/certs/srvwebcert.pem
   ```
 
-- 
+## 5. Configuration d'Apache2 sur SRV-WEB1
+
+- Activation du module SSL sous Apache2
+  
+  ```bash
+  a2enmod ssl
+  ```
+
+- Création du Virtualhost pour HTTPS
+  
+  ```bash
+  cd /etc/apache2/sites-available
+  cp ./sodecaf.conf sodecaf-ssl.conf
+  ```
