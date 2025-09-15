@@ -1,22 +1,35 @@
-# Mise en place de l'HTTPS
+# Mise en oeuvre de l'HTTPS sur un serveur web
 
 # Utilisation d'une autorité de certification interne
 
-## Préparation de la machine CA
+## 1. Préparation de la machine CA
 
-- Installation d'Openssl :
+- Configuration IP : /etc/network/interfaces
   
   ```bash
-  apt update && apt upgrade -y
+  allow-hotplug ens33
+  iface ens33 inet static
+        address 172.16.0.20/24
+        gateway 172.16.0.254
+  ```
+- Installation d'openssl
+  
+  ```bash
+  apt update && sudo apt upgrade -y
   apt install openssl
   ```
-
-- Paramétrer la configuration d'Openssl et changer la valeur de la variable `dir` par `/etc/ssl` :
+  
+  ## 2. configuration d'openssl
+- Editez le fichier /etc/ssl/openssl.cnf
   
   ```bash
-  nano /etc/ssl/openssl.cnf
+  dir = ./sodecaf
   ```
-
-
-
-
+- Création des dossiers et fichiers nécessaires
+  
+  ```bash
+  mkdir /etc/ssl/sodecaf
+  cd /etc/ssl/sodecaf/
+  touch index.txt
+  echo "01" > serial
+  ```
