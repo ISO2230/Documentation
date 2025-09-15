@@ -87,4 +87,24 @@
   openssl ca -policy policy_anything -out /etc/ssl/srvwebcert.pem -infiles /home/etudiant/srvwebkey_dem.pem
   ```
 
+- Copie du certificat signé sur le serveur web SRV-WEB1
+  
+  ```bash
+  scp /etc/ssl/sodecaf/certs/srvwebcert.pem etudiant@172.16.0.10:/home/etudiant
+  ```
+
+## 4. On travaille sur SRV-WEB1
+
+- Déplacer le certificat signé dans le dossier des certificats
+  
+  ```bash
+  mv /home/etudiant/srvwebcert.pem /etc/ssl/certs
+  ```
+
+- Changement de propriétaire du certificat
+  
+  ```bash
+  chown root:root /etc/ssl/certs/srvwebcert.pem
+  ```
+
 - 
