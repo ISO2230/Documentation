@@ -57,8 +57,8 @@
           name: srv-web1
           nodeid: 1
           ring0_addr: 172.16.0.10
-  }
-  node {
+      }
+      node {
           name: srv-web2
           nodeid: 2
           ring0_addr: 172.16.0.11
@@ -77,3 +77,23 @@
   ```
 
 - Cloner le serveur web, modifier le nom d'hôte et l'IP du clone
+
+- Visualiser l'état du cluster
+  
+  ```bash
+  crm status
+  ```
+
+- Afficher la configuration du cluster
+  
+  ```bash
+  crm configure show
+  ```
+
+- Désactivation de STONITH (Shot The Other Node In The Head)
+  
+  ```bash
+  crm configure property stonith-enabled=false
+  ```
+
+
