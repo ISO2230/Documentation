@@ -96,4 +96,38 @@
   crm configure property stonith-enabled=false
   ```
 
+- Désactiver le quorum
+  
+  ```bash
+  crm configure property no-quorum-policy="ignore"
+  ```
+
+- Configuration du Failover IP (IP virtuelle)
+  
+  ```bash
+  crm configure primitive IPFailover ocf:heartbeat:IPaddr2 params ip=172.16.0.12 cidr_netmask=24 nic=ens33 iflabel=VIP
+  ```
+
+- Tests de basculement
+  
+  ```bash
+  crm node online
+  crm node standby
+  ```
+
+- Arrêter ou supprimer une ressource
+  
+  ```bash
+  crm resource stop <nom_ressource>
+  crm configure delete <nom_ressource>
+  ```
+
+- Editer la configuration (à utiliser avec prudence)
+  
+  ```bash
+  crm configure edit
+  ```
+
+- 
+
 
