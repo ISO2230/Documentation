@@ -147,10 +147,6 @@
         SSLCertificateFile /etc/ssl/certs/srvwebcert.pem
         SSLCertificateKeyFile /etc/ssl/private/srvwebkey.pem
   
-  #       RewriteEngine On
-  #       RewriteCond %{HTTPS} !=on
-  #       RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
-  
         <Directory "/var/www/sodecaf">
                 Options -ExecCGI
                 Options -Indexes
@@ -174,10 +170,35 @@
   </VirtualHost>
   ```
 
-- Activation du site et redémarrage d'Apache2
+- Activation du site, activation du mode ssl et redémarrage d'Apache2
   
   ```bash
   a2dissite sodecaf
   a2ensite sodecaf-ssl
+  a2enmod ssl
+  systemctl restart apache2
+  ```
+
+- Activation du mode de redirection des requêtes HTTP vers HTTPS
+  
+  ```bash
+  a2enmod rewrite
+  ```
+
+- Configuration du mode rewrite dans la config sodecaf-ssl.conf
+  
+  ```apacheconf
+  <VirtualHost *:80>
+  
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+  
+  </VirtualHost>
+  ```
+
+- redémarrer Apache2
+  
+  ```bash
   systemctl restart apache2
   ```
