@@ -144,9 +144,9 @@
         SSLCertificateFile /etc/ssl/certs/srvwebcert.pem
         SSLCertificateKeyFile /etc/ssl/private/srvwebkey.pem
 
-#       RewriteEngine On
-#       RewriteCond %{HTTPS} !=on
-#       RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+  #       RewriteEngine On
+  #       RewriteCond %{HTTPS} !=on
+  #       RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
 
         <Directory "/var/www/sodecaf">
                 Options -ExecCGI
