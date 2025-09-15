@@ -128,6 +128,28 @@
   crm configure edit
   ```
 
-- 
+- Configuration du serviceWeb
+  
+  ```bash
+  crm configure
+  primitive serviceWeb lsb:apache2 op monitor interval=60s op start interval=0 timeout=60s op stop interval=0 timeout=60s
+  commit
+  quit
+  ```
+
+- Vérifier la disponibilité du service
+  
+  ```bash
+  nmap localhost -p 80
+  ```
+
+- Création du groupe de ressources servweb
+  
+  ```bash
+  crm configure
+  group servweb IPFailover serviceWeb meta migration-threshold="5"
+  commit
+  quit
+  ```
 
 
