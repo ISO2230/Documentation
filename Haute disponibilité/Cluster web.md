@@ -29,44 +29,44 @@
   
   ```shell
   totem {
-  version: 2
-  cluster_name: cluster_web
-  crypto_cipher: aes256
-  crypto_hash: sha1
-  clear_node_high_bit:yes
+      version: 2
+      cluster_name: cluster_web
+      crypto_cipher: aes256
+      crypto_hash: sha1
+      clear_node_high_bit:yes
   }
   logging {
-  fileline: off
-  to_logfile: yes
-  logfile: /var/log/corosync/corosync.log
-  to_syslog: no
-  debug: off
-  timestamp: on
-  logger_subsys {
-  subsys: QUORUM
-  debug: off
-  }
+      fileline: off
+      to_logfile: yes
+      logfile: /var/log/corosync/corosync.log
+      to_syslog: no
+      debug: off
+      timestamp: on
+      logger_subsys {
+          subsys: QUORUM
+          debug: off
+      }
   }
   quorum {
-  provider: corosync_votequorum
-  expected_votes: 2
-  two_nodes: 1
+      provider: corosync_votequorum
+      expected_votes: 2
+      two_nodes: 1
   }
   nodelist {
-  node {
-  name: srv-web1
-  nodeid: 1
-  ring0_addr: 172.16.0.10
+      node {
+          name: srv-web1
+          nodeid: 1
+          ring0_addr: 172.16.0.10
   }
   node {
-  name: srv-web2
-  nodeid: 2
-  ring0_addr: 172.16.0.11
-  }
+          name: srv-web2
+          nodeid: 2
+          ring0_addr: 172.16.0.11
+      }
   }
   service {
-  ver: 0
-  name: pacemaker
+      ver: 0
+      name: pacemaker
   }
   ```
 
