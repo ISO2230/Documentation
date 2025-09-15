@@ -76,4 +76,4 @@
   corosync-cfgtool -s
   ```
 
-
+- Cloner le serveur web, modifier le nom d'hôte et l'IP du clone
