@@ -144,4 +144,36 @@
   service mariadb restart
   ```
 
+- Créer l'utilisateur 'replicateur' sur SRV-WEB2 et lui donner les droits de réplication
+  
+  ```sql
+  create user 'replicateur'@'%' identified by 'Btssio2017';
+  grant replication slave on *.* to 'replicateur'@'%';
+  ```
+
+- Reconfigurer SRV-WEB2 dans MySQL
+  
+  ```sql
+  stop slave;
+  change master to master_host='172.16.0.10',
+  master_user='replicateur',
+  master_password='Btssio2017',
+  master_log_file='mysql-bin.000002',
+  master_log_pos=342;
+  start slave;
+  ```
+
+### Sur SRV-WEB1
+
+- Reconfigurer SRV-WEB1 dans MySQL
+  
+  ```sql
+  change master to master_host='172.16.0.11',
+  master_user='replicateur',
+  master_password='Btssio2017',
+  master_log_file='mysql-bin.000001',
+  master_log_pos=328;
+  start slave;
+  ```
+
 
