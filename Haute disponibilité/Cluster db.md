@@ -1,5 +1,13 @@
 # Cluster de base de données
 
+- Créer le dossier des logs MySQL
+  
+  ```bash
+  mkdir -m 2750 /var/log/mysql
+  chown mysql /var/log/mysql
+  touch /var/log/mysql/error.log
+  ```
+
 - Configurer le fichier e configuration serveur de maradb sur SRV-WEB1 (serveur maître)
   
   ```bash
@@ -35,6 +43,18 @@
   flush tables with read lock;
   ```
 
+- Débloquer les tables (si besoin)
+  
+  ```sql
+  unlock tables;
+  ```
+
+- Afficher le statut du maître
+  
+  ```sql
+  show master status;
+  ```
+
 - Configurer le fichier e configuration serveur de maradb sur SRV-WEB2 (serveur esclave)
   
   ```bash
@@ -44,11 +64,29 @@
   ```shell
   [mysqld]
   #bind-address    = 127.0.0.1
-  log_error    = /var/log/mysql/error.log
   server-id    = 2
-  log_bin    = /var/log/mysql/mysql-bin.log
   expire_logs_days    = 10
   max_binlog_size    = 100M
   master-retry-count    = 20
-  binlog_do_db    = gsb_valide
+  replicate-do-db    = gsb_valide
+  ```
+
+- Configurer l'esclave
+  
+  ```sql
+  stop slave;
+  change master to master_host='172.16.0.10', master_user='replicateur', master_password='Btssio2017', master_log_file='mysql-bin.000001', master_log_pos=328;
+  start slave;
+  ```
+
+- Vérifier le statut de l'esclave (avec l'affichage ligne par ligne)
+  
+  ```sql
+  show slave status \G;
+  ```
+
+- Une fois l'esclave correctement configuré, on déverrouille les bases de données sur le serveur maître SRV-WEB1
+  
+  ```sql
+  unlock tables;
   ```
