@@ -152,4 +152,8 @@
   quit
   ```
 
-
+- Définir une préférence de nœud primaire pour l'IP virtuelle
+  
+  ```bash
+  crm resource move IPFailover srv-web1
+  ```
