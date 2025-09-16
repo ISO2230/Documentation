@@ -1,6 +1,6 @@
 # Cluster de base de données
 
-- Créer le dossier des logs MySQL
+- Créer le dossier des logs MySQL sur les deux serveurs (SRV-WEB1 & SRV-WEB2)
   
   ```bash
   mkdir -m 2750 /var/log/mysql
@@ -64,6 +64,7 @@
   ```shell
   [mysqld]
   #bind-address    = 127.0.0.1
+  log_error    = /var/log/mysql/error.log
   server-id    = 2
   expire_logs_days    = 10
   max_binlog_size    = 100M
@@ -110,8 +111,37 @@
   select * from Visiteur;
   ```
 
+---
 
+## Réplication bi-directionnelle
 
+### Sur SRV-WEB1
 
+- Ajouter dans /etc/mysql/mariadb.conf.d/50-server.cnf les lignes suivantes
+  
+  ```shell
+  [mysqld]
+  log-slave-updates
+  master-retry-count    = 20
+  replicate-do-db        = gsb_valide
+  ```
+
+### Sur SRV-WEB2
+
+- Modifier le le fichier de config de MySQL
+  
+  ```shell
+  [mysqld]
+  log_bin        = /var/log/mysql/mysql-bin.log
+  
+  binlog_do_db    = gsb_valide
+  log-slave-updates
+  ```
+
+- redémarrer le service MySQL
+  
+  ```bash
+  service mariadb restart
+  ```
 
 
