@@ -31,7 +31,7 @@
   create user 'replicateur'@'%' identified by 'Btssio2017';
   ```
 
-- Autoriser la réplication pour l'utilisateur distant
+- Autoriser la réplication pour l'utilisateur distant (sur le serveur maître)
   
   ```sql
   grant replication slave on *.* to 'replicateur'@'%';
@@ -109,6 +109,8 @@
   use gsb_valide;
   select * from Visiteur;
   ```
+
+
 
 
 
