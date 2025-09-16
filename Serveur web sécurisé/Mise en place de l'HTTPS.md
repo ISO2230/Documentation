@@ -202,3 +202,10 @@
   ```bash
   systemctl restart apache2
   ```
+
+## 6. Bonus : création d'un certificat autosigné, directement sur le serveur web
+
+```bash
+openssl genrsa -out /etc/ssl/private/srvwebkey.pem 4096
+openssl req -new -x509 -days 1825 -key /etc/ssl/private/srvwebkey.pem -out /etc/ssl/certs/srvwebcert.pem
+```
