@@ -157,3 +157,5 @@
   ```bash
   crm resource move IPFailover srv-web1
   ```
+
+
