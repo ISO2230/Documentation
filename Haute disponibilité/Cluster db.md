@@ -75,7 +75,11 @@
   
   ```sql
   stop slave;
-  change master to master_host='172.16.0.10', master_user='replicateur', master_password='Btssio2017', master_log_file='mysql-bin.000001', master_log_pos=328;
+  change master to master_host='172.16.0.10',
+  master_user='replicateur',
+  master_password='Btssio2017',
+  master_log_file='mysql-bin.000001',
+  master_log_pos=328;
   start slave;
   ```
 
@@ -90,3 +94,22 @@
   ```sql
   unlock tables;
   ```
+
+- Pour vérifier la configuration du serveur maître et serveur esclave, on modifie le mot de passe d'un utilisateur dans la base de données gsb_valide (à faire sur SRV-WEB1)
+  
+  ```sql
+  use gsb_valide;
+  select * from Visiteur;
+  update gsb_valide.Visiteur set mdp='toto' where login='agest';
+  ```
+
+- Ensuite, on vérifie que la base de données a été mise à jour sur l'esclave (SRV-WEB2)
+  
+  ```sql
+  use gsb_valide;
+  select * from Visiteur;
+  ```
+
+
+
+
