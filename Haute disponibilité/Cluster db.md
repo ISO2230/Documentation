@@ -176,4 +176,26 @@
   start slave;
   ```
 
+### Sur SRV-WEB1 & SRV-WEB2
 
+- Redémarrer MySQL
+  
+  ```bash
+  service mariadb restart
+  ```
+
+---
+
+## Intégration de MySQL dans le cluster
+
+- Configurer la ressource serviceMySQL sur l'un des deux serveurs
+  
+  ```bash
+  crm configure primitive serviceMySQL ocf:heartbeat:mysql params socket=/var/run/mysqld/mysqld.sock
+  ```
+
+- Créer un clone de la ressource serviceMySQL
+  
+  ```bash
+  crm configure clone cServiceMySQL serviceMySQL
+  ```
