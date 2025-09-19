@@ -8,7 +8,7 @@
   touch /var/log/mysql/error.log
   ```
 
-- Configurer le fichier e configuration serveur de maradb sur SRV-WEB1 (serveur maître)
+- Configurer le fichier e configuration serveur de mariadb sur SRV-WEB1 (serveur maître)
   
   ```bash
   nano /etc/mysql/mariadb.conf.d/50-server.cnf
