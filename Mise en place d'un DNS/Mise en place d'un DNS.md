@@ -127,4 +127,22 @@
   service bind9 restart
   ```
 
+## Sur SRV-DNS1 et SRV-DNS2
+
+- Activer et paramétrer l'option Forwarder
+  
+  ```bash
+  nano /etc/bind/named.conf.options
+  ```
+  
+  ```shell
+  options {
+      directory "var/cache/bind";
+      forwarders {
+              8.8.8.8;
+              1.1.1.1;
+      };
+  };
+  ```
+
 
