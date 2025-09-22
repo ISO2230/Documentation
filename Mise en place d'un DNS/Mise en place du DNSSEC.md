@@ -40,3 +40,5 @@
   cd /var/cache/bind
   dnssec-signzone -o sodecaf.fr -t -k /etc/bind/keys/Ksodecaf.fr.+005+23627 db.sodecaf.fr /etc/bind/keys/Ksodecaf.fr.+005+59788
   ```
+
+
