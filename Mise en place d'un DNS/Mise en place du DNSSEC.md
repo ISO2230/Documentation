@@ -19,7 +19,7 @@
   > Clé KSK Sodecaf publique : Ksodecaf.fr.+005+23627.key
   > 
   > Clé KSK Sodecaf privée : Ksodecaf.fr.+005+23627.private
-  
+
 - Ajouter les clés publiques ZSK et KSK dans /var/cache/bind/db.sodecaf.fr
   
   ```bash
@@ -40,5 +40,3 @@
   cd /var/cache/bind
   dnssec-signzone -o sodecaf.fr -t -k /etc/bind/keys/Ksodecaf.fr.+005+23627 db.sodecaf.fr /etc/bind/keys/Ksodecaf.fr.+005+59788
   ```
-
-
