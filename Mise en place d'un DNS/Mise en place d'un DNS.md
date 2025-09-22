@@ -90,4 +90,41 @@
   12    IN    PTR    www.sodecaf.fr.
   ```
 
-- 
+## Sur SRV-DNS2
+
+- Paramétrer l'esclave
+  
+  ```bash
+  nano /etc/bind/named.conf/local
+  ```
+  
+  ```shell
+  zone "sodecaf.fr" {
+      type slave;
+      file "slave/db.sodecaf.fr";
+      masters {172.16.0.3;};
+  };
+  
+  zone "0.16.172.in-addr.arpa" {
+      type slave;
+      file "slave/db.172.16.0.rev";
+      masters {172.16.0.3;};
+  };
+  ```
+
+- créer le dossier 'slave' et le changer de groupe
+  
+  ```bash
+  cd /var/cache/bind
+  mkdir slave
+  chgrp bind slave/
+  chmod g+w slave/
+  ```
+
+- redémarrer bind9
+  
+  ```bash
+  service bind9 restart
+  ```
+
+
