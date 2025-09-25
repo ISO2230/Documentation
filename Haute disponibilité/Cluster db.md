@@ -55,7 +55,7 @@
   show master status;
   ```
 
-- Configurer le fichier e configuration serveur de maradb sur SRV-WEB2 (serveur esclave)
+- Configurer le fichier de configuration serveur de mariadb sur SRV-WEB2 (serveur esclave)
   
   ```bash
   nano /etc/mysql/mariadb.conf.d/50-server.cnf
@@ -199,5 +199,3 @@
   ```bash
   crm configure clone cServiceMySQL serviceMySQL
   ```
-
-
