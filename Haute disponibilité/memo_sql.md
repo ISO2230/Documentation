@@ -21,7 +21,7 @@
 - Donner les droits d'un utilisateur à une base de données
   
   ```sql
-  grant all privileges on gsb_valide.* to 'userGsb'@localhost';
+  grant all privileges on gsb_valide.* to 'userGsb'@'localhost';
   flush privileges;
   ```
 
