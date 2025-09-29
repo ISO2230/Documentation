@@ -65,25 +65,33 @@
 - Créer et configurer une étendue
   
   ```powershell
+  # Script - création d'une étendue DHCP
+  
   $NomEtendue = "DHCP_sodecaf"
   $IPreseau = "172.16.0.0"
   $DebutEtendueDHCP = "172.16.0.150"
-  $FinDebutDHCP = "172.16.0.200"
+  $FinEtendueDHCP = "172.16.0.200"
   $MasqueIP = "255.255.255.0"
   $IPPasserelle = "172.16.0.254"
-  $IPDNSPrimaire = "127.0.0.1"
+  $IPDNSPrimaire = "172.16.0.1"
   $IPDNSSecondaire = "8.8.8.8"
   $DomainNameDNS = "sodecaf.local"
-  $DureeBail = "14400" # Durée du bail : 4h
-  $NomServeurDHCP = "SRV-WIN-CORE1"
+  $DureeBail = "14400" # durée du bail = 4h
+  $nomServeurDHCP = "SRV-WIN-CORE1"
   
   # Création de l'étendue
-  Add-DhcpServer4Scope -ScopeId $IPreseau -Name $NomEtendue -State Active
-  Set-DhcpServer4Scope -ScopeId $IPreseau -OptionId 3 -Value $IPPasserelle
-  
+  Add-DhcpServerv4Scope -Name $NomEtendue -StartRange $DebutEtendueDHCP  -EndRange $FinEtendueDHCP -SubnetMask $MasqueIP
+  Set-DhcpServerv4OptionValue -ScopeId $IPreseau -OptionId 3 -Value $IPPasserelle
+  Set-DhcpServerv4OptionValue -ScopeId $IPreseau -OptionId 6 -Value $IPDNSPrimaire,$IPDNSSecondaire -Force
+  Set-DhcpServerv4OptionValue -ScopeId $IPreseau -OptionId 15 -Value $DomainNameDNS
+  Set-DhcpServerv4OptionValue -ScopeId $IPreseau -OptionId 51 -Value $DureeBail
   
   # Activation de l'étendue
+  Set-DhcpServerv4Scope -ScopeId $IPreseau -Name $NomEtendue -State Active
   
+  # Affichage des informations de l'étendue créée
+  Get-DhcpServerv4Scope -ScopeId $IPreseau
+  Get-DhcpServerv4OptionValue -ComputerName $nomServeurDHCP -ScopeId $IPreseau
   ```
 
 
