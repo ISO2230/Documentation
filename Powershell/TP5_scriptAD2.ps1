@@ -9,6 +9,8 @@ $ADUsers=Import-csv "c:\users\Administrateur\Documents\utilisateurs sodecaf.csv"
 
 #-------- Fonction de génération de mot de passe --------------
 Function CreatePassword() {
+    $min = ""  # Initialisation importante !
+    $maj = ""  # Initialisation importante !
 
     for ($i=0;$i -lt 3;$i++){
         $min += Get-Random -InputObject a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z
