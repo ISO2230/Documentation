@@ -1,5 +1,29 @@
 # Cluster de base de données
 
+- Installer MariaDB
+
+  ```bash
+  apt update && apt upgrade -y
+  apt install mariadb-server
+  ```
+
+- Créer la base de données
+  
+  ```bash
+  mysql
+  ```
+
+  ```sql
+  create database gsb_valide
+  ```
+
+- Importer les tables sql dans la table 'gsb_valide'
+
+  ```bash
+  mysql gsb_valide < gsb_frais_structure.sql
+  mysql gsb_valide < gsb_frais_insert_tables_statiques.sql
+  ```
+
 - Créer le dossier des logs MySQL sur les deux serveurs (SRV-WEB1 & SRV-WEB2)
   
   ```bash
