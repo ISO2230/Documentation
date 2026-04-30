@@ -7,7 +7,7 @@
 
 Sur srv-web1, supprimer la ressource servweb de corosync :
 
-```bash
+```shell
 crm resource stop serviceWeb
 crm resource stop IPFailover
 crm configure delete servweb
@@ -59,7 +59,7 @@ auto_increment_increment=2
 Il est nécessaire de désactiver le protocole HTTPS de la configuration Apache2 sur les serveurs web.
 
 Désactiver la partie HTTPS dans le fichier de configuration comme suit :
-```shell
+```bash
 <VirtualHost *:80>
 	ServerAdmin webmaster@sodecaf.fr
 	DocumentRoot /var/www/sodecaf
@@ -79,7 +79,7 @@ Désactiver la partie HTTPS dans le fichier de configuration comme suit :
 ## Installation et première configuration d'HAProxy
 
 Installation et démarrage d'HAProxy :
-```bash
+```shell
 apt-get update && apt-get upgrade -y
 apt-get install haproxy
 ```
