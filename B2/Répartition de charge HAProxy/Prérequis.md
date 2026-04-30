@@ -3,7 +3,7 @@
 - Un serveur Debian 12 pour HAProxy
 - Deux serveurs web (on utilisera ceux du cluster corosync)
 
-## Suppression de la ressource servweb de corosync
+## Préparation du cluster
 
 Sur srv-web1, supprimer la ressource servweb de corosync :
 
@@ -34,7 +34,7 @@ Clone Set: cServiceWeb [serviceWeb]
 	Started: [ serv2 serv1 ]
 ```
 
-## Configuration de MariaDB
+### Configuration de MySQL
 
 Le fichier de configuration de MySQL doit être modifié de manière à ce que le service MySQL puisse supporter une écriture simultanée sur les deux serveurs (voir annexe 3 du Coté Labo « Haute disponibilité d'un service Web dynamique ») :
 
@@ -53,3 +53,34 @@ Sur le serveur serv2 (fichier /etc/mysql/mariadb.conf.d/50-server.cnf) :
 auto_increment_offset=2
 auto_increment_increment=2
 ```
+---
+## HAProxy et HTTPS
+
+Il est nécessaire de désactiver le protocole HTTPS de la configuration Apache2 sur les serveurs web.
+
+Désactiver la partie HTTPS dans le fichier de configuration comme suit :
+```shell
+<VirtualHost *:80>
+	ServerAdmin webmaster@sodecaf.fr
+	DocumentRoot /var/www/sodecaf
+	DirectoryIndex sodecaf.html
+	
+	<Directory "/var/www/sodecaf">
+		Options -Indexes -FollowSymlinks -MultiViews -ExecCGI
+		AllowOverride none
+		Require all granted
+	</Directory>
+	
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+---
+## Installation et première configuration d'HAProxy
+
+Installation et démarrage d'HAProxy :
+```bash
+apt-get update && apt-get upgrade -y
+apt-get install haproxy
+```
+
